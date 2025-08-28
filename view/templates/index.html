@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h1>Lista de Usuários</h1>
+
+    {% if users %}
+        <ul>
+            {% for user in users %}
+                <li>{{ user.name }} - {{ user.email }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum usuário cadastrado ainda.</p>
+    {% endif %}
+
+    <a href="{{ url_for('contact') }}">➕ Cadastrar Novo Usuário</a>
+</body>
+</html>
