@@ -23,4 +23,4 @@ app.add_url_rule('/tasks/<int:task_id>/toggle', 'update_task_status', TaskContro
 app.add_url_rule('/tasks/delete/<int:task_id>', 'delete_task', TaskController.delete_task, methods=['POST'])
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(debug=True)

@@ -1,52 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Minhas Tarefas</title>
 </head>
 <body>
     <h1>Minhas Tarefas</h1>
-
-    <a href="{{ url_for('create_task') }}">➕ Nova Tarefa</a>
-
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Descrição</th>
-                <th>Status</th>
-                <th>Usuário</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if tasks %}
-                {% for task in tasks %}
-                <tr>
-                    <td>{{ task.id }}</td>
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.description or "-" }}</td>
-                    <td>{{ task.status }}</td>
-                    <td>{{ task.user.name }}</td>
-                    <td>
-                        <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="POST" style="display:inline;">
-                            <button type="submit">
-                                {% if task.status.lower() == "pendente" %} Concluir {% else %} Reabrir {% endif %}
-                            </button>
-                        </form>
-                        <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
-                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="6">Nenhuma tarefa cadastrada.</td>
-                </tr>
-            {% endif %}
-        </tbody>
+    <a href="{{ url_for('create_task') }}">Nova Tarefa</a>
+    <table border="1">
+        <tr>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Usuário</th>
+            <th>Ações</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.user.name }}</td>
+            <td>
+                <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="post" style="display:inline;">
+                    <button type="submit">
+                        {% if task.status == 'pendente' %}Concluir{% else %}Reabrir{% endif %}
+                    </button>
+                </form>
+                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
     </table>
+    <a href="{{ url_for('index') }}">Voltar para usuários</a>
 </body>
 </html>
