@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import request, jsonify
 from models.user import db, User
 from models.task import Task
 
@@ -6,7 +6,14 @@ class TaskController:
     @staticmethod
     def list_tasks():
         tasks = Task.query.all()
-        return render_template('tasks.html', tasks=tasks)
+        tasks_data = [{
+            'id': task.id,
+            'title': task.title,
+            'description': task.description,
+            'status': task.status,
+            'user_id': task.user_id,
+        } for task in tasks]
+        return jsonify(tasks_data)
     
     @staticmethod
     def create_task():
@@ -20,10 +27,10 @@ class TaskController:
                 new_task = Task(title=title, description=description, user_id=user_id)
                 db.session.add(new_task)
                 db.session.commit()
-                return redirect(url_for('list_tasks'))
-        
-        users = User.query.all()
-        return render_template("create_task.html", users=users)
+                return jsonify({"message": "Tarefa criada com sucesso", "task_id": new_task.id}), 201
+            return jsonify({"error": "Título e Usuário são obrigatórios"}), 400
+
+        return jsonify({"error": "Método não permitido"}), 405
     
     @staticmethod
     def update_task_status(task_id):
@@ -31,7 +38,8 @@ class TaskController:
         if task:
             task.status = 'concluido' if task.status == 'pendente' else 'pendente'
             db.session.commit()
-        return redirect(url_for('list_tasks'))
+            return jsonify({"message": "Status da tarefa atualizado com sucesso"}), 200
+        return jsonify({"error": "Tarefa não encontrada"}), 404
     
     @staticmethod
     def delete_task(task_id):
@@ -39,4 +47,5 @@ class TaskController:
         if task:
             db.session.delete(task)
             db.session.commit()
-        return redirect(url_for('list_tasks'))
+            return jsonify({"message": "Tarefa deletada com sucesso"}), 200
+        return jsonify({"error": "Tarefa não encontrada"}), 404
