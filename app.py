@@ -1,14 +1,30 @@
-import os
 from flask import Flask
-from config import Config
+from flasgger import Swagger
 from models.user import db
 from controllers.user_controller import UserController
 from controllers.task_controller import TaskController
 
+# Cria a aplicação Flask
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object('config.Config')  # ajuste conforme seu config.py
+
+# Inicializa o banco
 db.init_app(app)
 
+# Template Swagger 2.0
+swagger_template = {
+    "swagger": "2.0",
+    "info": {
+        "title": "API de Usuários e Tarefas",
+        "version": "1.0",
+        "description": "Documentação da API usando Flask + Flasgger"
+    }
+}
+
+# Inicializa Swagger
+swagger = Swagger(app, template=swagger_template)
+
+# Cria as tabelas do banco
 with app.app_context():
     db.create_all()
 
