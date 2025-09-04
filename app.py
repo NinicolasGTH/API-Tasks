@@ -34,6 +34,7 @@ app.add_url_rule('/users', 'contact', UserController.contact, methods=['POST'])
 
 # Rotas Task
 app.add_url_rule('/tasks', 'list_tasks', TaskController.list_tasks, methods=['GET'])
+app.add_url_rule('/tasks/<int:task_id>', 'get_task_by_id', TaskController.get_taskbyid, methods=['GET'])
 app.add_url_rule('/tasks', 'create_task', TaskController.create_task, methods=['POST'])
 app.add_url_rule('/tasks/<int:task_id>', 'update_task_status', TaskController.update_task_status, methods=['PUT'])
 app.add_url_rule('/tasks/<int:task_id>', 'delete_task', TaskController.delete_task, methods=['DELETE'])

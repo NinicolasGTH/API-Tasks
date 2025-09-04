@@ -47,6 +47,63 @@ class TaskController:
         return jsonify(tasks_data), 200
 
     @staticmethod
+    def get_taskbyid(task_id):
+        """
+        Retorna uma tarefa específica
+        ---
+        tags:
+          - Tasks
+        summary: Retorna uma tarefa específica
+        parameters:
+          - name: task_id
+            in: path
+            required: true
+            type: integer
+            description: ID da tarefa a ser retornada
+        responses:
+          200:
+            description: Tarefa Encontrada
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                title:
+                  type: string
+                  example: Fazer a tabuada do 1 ao 10
+                description:
+                  type: string
+                  example: Calcular a tabuada
+                status: 
+                  type: string
+                  example: pendente
+                user_id:
+                  type: integer
+                  example: 1
+          404:
+            description: Tarefa não encontrada
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: Tarefa não encontrada
+        """
+        task = Task.query.get(task_id)
+        if not task:
+            return jsonify({"error": "Tarefa não encontrada"}), 404
+
+        task_data = {
+            "id": task.id,
+            "title": task.title,
+            "description": task.description,
+            "status": task.status,
+            "user_id": task.user_id
+        }
+        return jsonify(task_data), 200
+
+    @staticmethod
     def create_task():
         """
         Criar uma nova tarefa
