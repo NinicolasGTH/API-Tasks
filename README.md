@@ -1,7 +1,5 @@
 # 📋 API de Gerenciamento de Tarefas (To-Do List)
 
-![Python](https://img.shields.io) ![Flask/Django](https://img.shields.io) ![HTML5](https://img.shields.io) ![CSS3](https://img.shields.io)
-
 Uma aplicação simples e intuitiva de gerenciamento de tarefas, projetada como uma API funcional com uma única interface visual (single view) para listar, adicionar, atualizar e excluir tarefas.
 
 ## 🚀 Funcionalidades
@@ -10,13 +8,13 @@ Uma aplicação simples e intuitiva de gerenciamento de tarefas, projetada como 
 - **Adicionar Tarefa:** Formulário simples para adicionar novas pendências.
 - **Marcar como Concluída:** Alternar o status da tarefa (check/uncheck).
 - **Excluir Tarefa:** Botão para remover tarefas concluídas ou desnecessárias.
-- **Single View:** Interface limpa em uma única página usando HTML/CSS.
+- **Single View:** Interface limpa em uma única página usando HTML.
 
 ## 🛠️ Tecnologias Utilizadas
 
-*   **Backend:** Python 3.x (Flask ou Django)
-*   **Frontend:** HTML5, CSS3 (com/sem JavaScript)
-*   **Banco de Dados:** SQLite3 (ou JSON/Memória)
+*   **Backend:** Python 3.13 (Flask)
+*   **Frontend:** HTML5
+*   **Banco de Dados:** SQLite3
 
 ## 📦 Como Instalar e Rodar
 
